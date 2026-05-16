@@ -1,0 +1,204 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+// Define elegant modern color palette
+$primary-color: #00897b;
+$primary-dark: #1a4d6d;
+$primary-light: #00d4d4;
+$accent-color: #00bcd4;
+$secondary-dark: #0d2d42;
+
+@include mat.core();
+
+$primary-palette: map.merge(mat.$cyan-palette, (error: mat.$red-palette));
+
+$my-theme: mat.define-theme((
+  color: (
+    primary: $primary-palette,
+    tertiary: mat.$blue-palette,
+  ),
+));
+
+:root {
+  @include mat.all-component-themes($my-theme);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f8fafb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// Layout
+.page-container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: $primary-dark;
+  }
+}
+
+.filter-bar {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+  mat-form-field {
+    min-width: 180px;
+  }
+}
+
+// Cards
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.balance-card {
+  mat-card-header {
+    margin-bottom: 12px;
+  }
+}
+
+// Table
+.table-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  overflow: auto;
+}
+
+.mat-mdc-table {
+  width: 100%;
+}
+
+.mat-mdc-row:hover {
+  background: rgba(63, 81, 181, 0.04);
+}
+
+// Status chips
+.status-chip {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.pending   { background: #fff3e0; color: #e65100; }
+  &.approved  { background: #e8f5e9; color: #2e7d32; }
+  &.rejected  { background: #ffebee; color: #c62828; }
+  &.cancelled { background: #f5f5f5; color: #616161; }
+}
+
+// Forms
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+// Loading overlay
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+// Balance progress bars
+.balance-progress {
+  margin-top: 8px;
+
+  .balance-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  mat-progress-bar {
+    border-radius: 4px;
+  }
+}
+
+// Responsive table
+@media (max-width: 768px) {
+  .hide-sm {
+    display: none !important;
+  }
+}
+
+// Toolbar
+.mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+// Snackbar
+.success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+}
+
+// Low balance warning
+.low-balance-warning {
+  background: #fff8e1;
+  border: 1px solid #ffca28;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #f57f17;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
